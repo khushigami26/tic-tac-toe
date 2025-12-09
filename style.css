@@ -1,0 +1,170 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: #9b7aa3;
+  font-family: Poppins, sans-serif;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*conteiner */
+.container {
+  text-align: center;
+  width: 100%;
+}
+
+/* mode selection btn */
+.modebox {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.modebox button {
+  padding: 10px 22px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  font-weight: bold;
+  transition: 0.25s;
+}
+
+.modebox button:hover {
+  transform: scale(1.05);
+}
+
+.modebox .active {
+  background: #ffe4b5;
+}
+
+/* game area */
+.game.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* box */
+.board {
+  width: 330px;
+  height: 330px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.box {
+  width: 105px;
+  height: 105px;
+  background: #c7b3cc;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 3.8rem;
+  color: #ffe4b5;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.2s ease;
+}
+
+.box:hover {
+  background: #b99bbf;
+}
+
+/* sidebar */
+.sidebox {
+  width: 180px;
+  text-align: center;
+  color: white;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  background: white;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.sidebox p {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
+.title + .wincircle,
+.wincircle {
+  margin-left: 20px;
+}
+
+.wincircle {
+  width: 110px;
+  height: 110px;
+  background: white;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 3rem;
+  font-weight: bold;
+  color: #9b7aa3;
+
+  margin-top: 10px;
+}
+
+/* full win screen */
+.winscreen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.winscreen.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#wintext {
+  font-size: 5rem;
+  font-weight: bold;
+  color: #ffe4b5;
+  margin-bottom: 20px;
+}
+
+#winscreen .btn {
+  padding: 12px 25px;
+  font-size: 1.2rem;
+}
