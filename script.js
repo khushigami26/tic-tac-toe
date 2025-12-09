@@ -1,4 +1,3 @@
-// SELECT ELEMENTS
 const boxes = document.querySelectorAll(".box");
 
 const btnPlayer = document.getElementById("player");
@@ -14,31 +13,28 @@ const winCircle = document.getElementById("wincircle");
 const winScreen = document.getElementById("winscreen");
 const winText = document.getElementById("wintext");
 
-// GAME VARIABLES
 let versusAI = false;
 let turn = "X";
 let running = true;
 
-let board = ["", "", "", "", "", "", "", "", ""]; // index 0-8 for id 1-9
+let board = ["", "", "", "", "", "", "", "", ""];
 
 let scoreCountX = 0;
 let scoreCountO = 0;
 
-// WIN CONDITIONS
+// winning conditions
 const winPatterns = [
   [0, 1, 2],
   [3, 4, 5],
-  [6, 7, 8], // rows
+  [6, 7, 8], // row
   [0, 3, 6],
   [1, 4, 7],
-  [2, 5, 8], // columns
+  [2, 5, 8], // col
   [0, 4, 8],
-  [2, 4, 6], // diagonals
+  [2, 4, 6], // diagonal
 ];
 
-/* --------------------------
-   MODE SELECTION
---------------------------- */
+//selection of mode
 
 btnPlayer.onclick = () => {
   versusAI = false;
@@ -54,16 +50,12 @@ btnAI.onclick = () => {
   resetBoard();
 };
 
-/* --------------------------
-   CLICKING A BOARD BOX
---------------------------- */
-
 boxes.forEach((box) => {
   box.addEventListener("click", () => handleClick(box));
 });
 
 function handleClick(box) {
-  let id = parseInt(box.id) - 1; // convert id 1–9 to index 0–8
+  let id = parseInt(box.id) - 1;
 
   if (!running || board[id] !== "") return;
 
@@ -79,9 +71,7 @@ function handleClick(box) {
   }
 }
 
-/* --------------------------
-   AI MOVE (Simple Random)
---------------------------- */
+//ai
 
 function aiMove() {
   let emptySpots = board
@@ -99,9 +89,7 @@ function aiMove() {
   turn = "X";
 }
 
-/* --------------------------
-   CHECK WINNER
---------------------------- */
+//checking of winner
 
 function checkWinner() {
   for (let pattern of winPatterns) {
@@ -121,39 +109,32 @@ function checkWinner() {
   return false;
 }
 
-/* --------------------------
-   SHOW WINNER
---------------------------- */
+//display winner
 
 function showWinner(winner) {
   running = false;
 
-  // Score update
+  // update score
   if (winner === "X") scoreCountX++;
   if (winner === "O") scoreCountO++;
 
   scoreX.textContent = scoreCountX;
   scoreO.textContent = scoreCountO;
 
-  // Winner circle
   winCircle.textContent = winner === "Draw" ? "" : winner;
 
-  // Winner popup text
   winText.textContent = winner === "Draw" ? "Draw!" : `${winner} Wins!`;
 
-  // Show popup
+  //  popup
   winScreen.classList.add("show");
 
-  // 🎉 Confetti only if winner is X or O
+  // animation
   if (winner === "X" || winner === "O") {
     launchConfetti();
   }
 }
 
-/* --------------------------
-   CONFETTI FUNCTION
---------------------------- */
-
+//animation
 function launchConfetti() {
   let end = Date.now() + 1500;
 
@@ -169,9 +150,7 @@ function launchConfetti() {
   })();
 }
 
-/* --------------------------
-   NEW GAME + PLAY AGAIN
---------------------------- */
+//game reset
 
 btnNewGame.onclick = () => resetBoard();
 
@@ -180,9 +159,7 @@ btnPlayAgain.onclick = () => {
   resetBoard();
 };
 
-/* --------------------------
-   RESET BOARD
---------------------------- */
+//reset box
 
 function resetBoard() {
   board = ["", "", "", "", "", "", "", "", ""];
