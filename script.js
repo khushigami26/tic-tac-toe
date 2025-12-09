@@ -13,7 +13,7 @@ const winCircle = document.getElementById("wincircle");
 const winScreen = document.getElementById("winscreen");
 const winText = document.getElementById("wintext");
 
-let versusAI = false;
+let AI = false;
 let turn = "X";
 let running = true;
 
@@ -37,14 +37,14 @@ const winPatterns = [
 //selection of mode
 
 btnPlayer.onclick = () => {
-  versusAI = false;
+  AI = false;
   btnPlayer.classList.add("active");
   btnAI.classList.remove("active");
   resetBoard();
 };
 
 btnAI.onclick = () => {
-  versusAI = true;
+  AI = true;
   btnAI.classList.add("active");
   btnPlayer.classList.remove("active");
   resetBoard();
@@ -55,9 +55,9 @@ boxes.forEach((box) => {
 });
 
 function handleClick(box) {
-  let id = parseInt(box.id) - 1;
+  let id = parseInt(box.id) - 1; //Convert HTML id 1-9 TO  array index 0–8.
 
-  if (!running || board[id] !== "") return;
+  if (!running || board[id] !== "") return; //game stopping condition game finish or box filled
 
   board[id] = turn;
   box.textContent = turn;
@@ -66,7 +66,7 @@ function handleClick(box) {
 
   turn = turn === "X" ? "O" : "X";
 
-  if (versusAI && turn === "O") {
+  if (AI && turn === "O") {
     setTimeout(aiMove, 400);
   }
 }
@@ -74,13 +74,13 @@ function handleClick(box) {
 //ai
 
 function aiMove() {
-  let emptySpots = board
+  let emptySpots = board //fill all empty box
     .map((value, index) => (value === "" ? index : null))
     .filter((v) => v !== null);
 
   if (emptySpots.length === 0) return;
 
-  let pick = emptySpots[Math.floor(Math.random() * emptySpots.length)];
+  let pick = emptySpots[Math.floor(Math.random() * emptySpots.length)]; //randomly fill box
 
   board[pick] = "O";
   boxes[pick].textContent = "O";
@@ -102,6 +102,7 @@ function checkWinner() {
   }
 
   if (!board.includes("")) {
+    //if no space then draw
     showWinner("Draw");
     return true;
   }
@@ -136,7 +137,7 @@ function showWinner(winner) {
 
 //animation
 function launchConfetti() {
-  let end = Date.now() + 1500;
+  let end = Date.now() + 200; // time out for animation
 
   (function frame() {
     confetti({
